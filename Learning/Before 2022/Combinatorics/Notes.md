@@ -1,0 +1,2 @@
+- Brush up on probability and combinatorics basics.
+- Solve some probability questions from resonance sheet.

@@ -1,0 +1,18 @@
+## Notes -:
+- Setup :
+	- (MSVC + LSP) : Autocompletion and Linting.
+	- MINGW on WSL1 Ubuntu-18.04(for compilation and execution)
+	- MINGW on Windows for the Windows Custom Build System.
+- Directory Structure :
+	- Contests
+		- Atcoder
+		- CF
+		- CC
+	- Learning
+		- ..
+		- ..	
+		- ..
+	- Practice 
+		- ..
+		- ..
+		- ..
