@@ -1,21 +1,13 @@
-/*
-name: C. Recover an RBS
-group: Codeforces - Educational Codeforces Round 132 (Rated for Div. 2)
-url: https://codeforces.com/contest/1709/problem/C
-interactive: false
-memoryLimit: 256
-timeLimit: 2000
-Started At: 7:11:09 AM
-*/
 #include <bits/stdc++.h>
-using namespace std;
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
 
+using namespace std;
 int fastio() {
-    ios_base::sync_with_stdio(false); cout << fixed << setprecision(10); cin.tie(nullptr); return 0;
+    ios_base::sync_with_stdio(false);
+    cout << fixed << setprecision(10); cin.tie(nullptr); return 0;
 } int __fastio = fastio();
 template<typename A, typename B>    ostream &operator<<(ostream &os, const pair<A, B> &p);
 template<typename A>                ostream &operator<<(ostream &os, const set<A> &m) {
@@ -79,12 +71,65 @@ template<typename ...Args> void logger(string vars, Args&&... values) {
 #define out(...)                        logger(#__VA_ARGS__, __VA_ARGS__)
 
 
-void solve() {
+int check(vll &get, vll &spend, ll moves, ll c) {
+    ll n = get.size();
 
+    ll curr = 0, cnt = 0;
+    ll req = c;
+    for (int i = 0; i < n; i++) {
+        if (cnt > moves) return false;
+
+
+        ll times = (req / get[i]) + (req % get[i] != 0);
+
+        if (cnt + times <= moves) {
+            return true;
+        }
+        if (curr >= spend[i]) {
+            curr -= spend[i];
+            cnt++;
+        }
+        else {
+
+            ll diff = spend[i] - curr;
+            ll tonext = diff / get[i] + (diff % get[i] != 0);
+            if (cnt + tonext + 1 > moves) return false;
+
+            req += -tonext * get[i] + spend[i];
+            curr += tonext * get[i] - spend[i];
+            cnt += tonext + 1;
+        }
+    }
+    return false;
+}
+void solve() {
+    ll n, c; in(n, c);
+    vll get(n), spend(n - 1);
+    in_arr(n, get); in_arr(n - 1, spend);
+
+    spend.push_back(0);
+
+    ll left = 1, 7right = 1e9 + 1;
+    ll ans = -1;
+
+    if (check(get, spend, 5, c)) ans = 5;
+
+    while (left <= right) {
+        ll mid = left + (right - left) / 2;
+        bool is = check(get, spend, mid, c);
+        if (is) {
+            ans = mid;
+            right = mid - 1;
+        }
+        else {
+            left = mid + 1;
+        }
+    }
+    std::cout << ans << endl;
 }
 int main() {
     int tt = 1;
-    // cin >> tt; // "UN - COMMENT THIS FOR TESTCASES"
+    cin >> tt; // "UN - COMMENT THIS FOR TESTCASES"
     while (tt--) {
         solve();
     }

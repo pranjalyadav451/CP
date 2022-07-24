@@ -1,11 +1,11 @@
 /*
-name: Rorororobot
-group: Codeforces
-url: https://m1.codeforces.com/contest/1709/problem/D
+name: D. Rorororobot
+group: Codeforces - Educational Codeforces Round 132 (Rated for Div. 2)
+url: https://codeforces.com/contest/1709/problem/D
 interactive: false
 memoryLimit: 256
 timeLimit: 2000
-Started At: 9:19:20 PM
+Started At: 7:11:20 AM
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -79,31 +79,12 @@ template<typename ...Args> void logger(string vars, Args&&... values) {
 #define out(...)                        logger(#__VA_ARGS__, __VA_ARGS__)
 
 
-ll n, m;
-vll arr(m);
-
-void proc() {
-    ll sx, sy, ex, ey, k;
-    in(sx, sy, ex, ey, k);
-
-
-
-
-}
-
 void solve() {
-    in(n, m);
-    in_arr(m, arr);
-
-    ll q; in(q);
-    while (q--) {
-        proc();
-    }
 
 }
 int main() {
     int tt = 1;
-    cin >> tt; // "UN - COMMENT THIS FOR TESTCASES"
+    // cin >> tt; // "UN - COMMENT THIS FOR TESTCASES"
     while (tt--) {
         solve();
     }
