@@ -48,14 +48,14 @@ typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_up
 #define dbgg(x, y)                          cout << #x << ": " << x << "  " << #y << ": " << y << endl
 
 template<typename T> void in_arr(ll n, vector<T> &arr) {
-    if (arr.size() != n) arr.resize(n); for (int i = 0; i < n; i++) cin >> arr[i];
+    if ((int)arr.size() != n) arr.resize(n); for (int i = 0; i < n; i++) cin >> arr[i];
 }
 template<typename... Args> void in(Args&... args) {
     ((cin >> args), ...);
 }
 
 vector<string >process(string &str) {
-    vector<string> res; string temp = ""; for (int i = 0; i < str.size(); i++) {
+    vector<string> res; string temp = ""; for (size_t i = 0; i < str.size(); i++) {
         if (str[i] == '|') {
             res.push_back(temp); temp = "";
         }
@@ -63,7 +63,7 @@ vector<string >process(string &str) {
     } res.push_back(temp); return res;
 }
 template<typename ...Args> void logger(string vars, Args&&... values) {
-    string delim = ""; stringstream ss; (..., (ss << delim << values, delim = "|")); delim = ""; string arrow = " : ", str_values = ss.str(); for (auto &a : vars) if (a == ',') a = '|'; auto labels = process(vars), content = process(str_values); cout << "[ "; for (int i = 0; i < labels.size(); i++) {
+    string delim = ""; stringstream ss; (..., (ss << delim << values, delim = "|")); delim = ""; string arrow = " : ", str_values = ss.str(); for (auto &a : vars) if (a == ',') a = '|'; auto labels = process(vars), content = process(str_values); cout << "[ "; for (size_t i = 0; i < labels.size(); i++) {
         cout << delim << labels[i] << arrow << content[i]; delim = ", ";
     } cout << " ]" << endl;
 }
@@ -86,20 +86,19 @@ template<typename ...Args> void logger(string vars, Args&&... values) {
 */
 
 class Segment_Tree {
-public:
-    static const ll INF = 1e18;
+    const ll INF = 1e18;
     long long N;
     vector<ll> arr;
     vector<ll> tree;
-private:
+
     void build(ll node, ll start, ll end) {
         if (start == end) {
             tree[node] = arr[start];
             return;
         }
         ll mid = (start + end) >> 1LL,
-           left_child = (node << 1LL),
-           right_child = (left_child | 1LL);
+            left_child = (node << 1LL),
+            right_child = (left_child | 1LL);
 
         build(left_child, start, mid);
         build(right_child, mid + 1, end);
@@ -114,8 +113,8 @@ private:
         }
 
         ll mid = (start + end) >> 1LL,
-           left_child = (node << 1LL),
-           right_child = (left_child | 1LL);
+            left_child = (node << 1LL),
+            right_child = (left_child | 1LL);
 
         if (idx <= mid) update(left_child, idx, val, start, mid);
         else update(right_child, idx, val, mid + 1, end);
@@ -128,8 +127,8 @@ private:
         }
 
         ll mid = (start + end) >> 1LL,
-           left_child = (node << 1LL),
-           right_child = (left_child | 1LL);
+            left_child = (node << 1LL),
+            right_child = (left_child | 1LL);
 
         ll get_from_left = query(left_child, q_start, q_end, start, mid);
         ll get_from_right = query(right_child, q_start, q_end, mid + 1, end);
@@ -138,7 +137,6 @@ private:
     }
 public:
     Segment_Tree(vll &elements, ll number_ele) {
-        const ll INF = 1e18;
         this->N = number_ele;
         arr = elements;
         tree.assign(4 * N, INF);
@@ -157,8 +155,8 @@ public:
 void solve() {
     ll n, q; in(n, q);
     vll arr(n); in_arr(n, arr);
-
-    Segment_Tree seg (arr, n);
+    out(arr);
+    Segment_Tree seg(arr, n);
 
     while (q--) {
         char type;
