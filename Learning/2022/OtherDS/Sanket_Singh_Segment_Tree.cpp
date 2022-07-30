@@ -86,10 +86,12 @@ template<typename ...Args> void logger(string vars, Args&&... values) {
 */
 
 class Segment_Tree {
+public:
+    static const ll INF = 1e18;
     long long N;
     vector<ll> arr;
     vector<ll> tree;
-
+private:
     void build(ll node, ll start, ll end) {
         if (start == end) {
             tree[node] = arr[start];
@@ -107,19 +109,20 @@ class Segment_Tree {
     // point update
     void update(ll node, ll idx, long long val, ll start, ll end) {
         if (start == end) {
-            tree[node] = val;
+            tree[node] = arr[start] = val;
             return;
         }
 
         ll mid = (start + end) >> 1LL,
            left_child = (node << 1LL),
            right_child = (left_child | 1LL);
+
         if (idx <= mid) update(left_child, idx, val, start, mid);
         else update(right_child, idx, val, mid + 1, end);
         tree[node] = min(tree[left_child], tree[right_child]);
     }
     long long query(ll node, ll q_start, ll q_end, ll start, ll end) {
-        if (end < q_start or start > q_end) return 0;
+        if (end < q_start or start > q_end) return INF;
         if (q_start <= start and q_end >= end) {
             return tree[node];
         }
@@ -134,11 +137,12 @@ class Segment_Tree {
         return min(get_from_right, get_from_left);
     }
 public:
-    Segment_Tree(ll number_ele) {
+    Segment_Tree(vll &elements, ll number_ele) {
         const ll INF = 1e18;
         this->N = number_ele;
-        arr.assign(4 * N, INF);
+        arr = elements;
         tree.assign(4 * N, INF);
+        build(1, 0, N - 1);
     }
     long long find_query(ll start, ll end) {
         assert(start <= end);
@@ -151,35 +155,22 @@ public:
 };
 
 void solve() {
-    ll n, q; cin >> n >> q;
-    vll arr(n);
-    for (int i = 0; i < n; i++) cin >> arr[i];
+    ll n, q; in(n, q);
+    vll arr(n); in_arr(n, arr);
 
-    for (int i = 0; i < q; i++) {
-        int a; in(a); out(a);
+    Segment_Tree seg (arr, n);
+
+    while (q--) {
+        char type;
+        int a, b; in(type, a, b);
+        if (type == 'q') {
+            ll ans = seg.find_query(a - 1, b - 1);
+            cout << ans << endl;
+        }
+        else if (type == 'u') {
+            seg.update_idx(a - 1, b);
+        }
     }
-
-    // Segment_Tree seg (n);
-
-    // for (int i = 0; i < n; i++) {
-    //     seg.update_idx(i, arr[i]);
-    // }
-
-
-
-    // while (q--) {
-    //     int type, a, b; in(type, a, b);
-    //     out(type, a, b);
-    //     if (type == 'q') {
-    //         ll ans = seg.find_query(a - 1, b - 1);
-    //         cout << ans << endl;
-    //     }
-    //     if (type == 'u') {
-    //         seg.update_idx(a - 1, b);
-    //     }
-    // }
-
-
 }
 int main() {
     solve();
