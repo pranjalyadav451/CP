@@ -97,8 +97,8 @@ class Segment_Tree {
             return;
         }
         ll mid = (start + end) >> 1LL,
-            left_child = (node << 1LL),
-            right_child = (left_child | 1LL);
+           left_child = (node << 1LL),
+           right_child = (left_child | 1LL);
 
         build(left_child, start, mid);
         build(right_child, mid + 1, end);
@@ -113,8 +113,8 @@ class Segment_Tree {
         }
 
         ll mid = (start + end) >> 1LL,
-            left_child = (node << 1LL),
-            right_child = (left_child | 1LL);
+           left_child = (node << 1LL),
+           right_child = (left_child | 1LL);
 
         if (idx <= mid) update(left_child, idx, val, start, mid);
         else update(right_child, idx, val, mid + 1, end);
@@ -127,8 +127,8 @@ class Segment_Tree {
         }
 
         ll mid = (start + end) >> 1LL,
-            left_child = (node << 1LL),
-            right_child = (left_child | 1LL);
+           left_child = (node << 1LL),
+           right_child = (left_child | 1LL);
 
         ll get_from_left = query(left_child, q_start, q_end, start, mid);
         ll get_from_right = query(right_child, q_start, q_end, mid + 1, end);
