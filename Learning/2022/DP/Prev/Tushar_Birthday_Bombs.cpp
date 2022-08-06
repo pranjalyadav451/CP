@@ -35,11 +35,12 @@ vector<int> bday(int X, vector<int> &B) {
 void solve(){
     int limit; cin >> limit;
     int N; cin >> N;
+
     vector<int> arr(N);
     for(int i =0; i < N;i++){
         cin >> arr[i];
     }
-    
+
     vector<int> ans = bday(limit,arr);
     for(auto a:ans) cout << a << " ";
     cout << endl;
